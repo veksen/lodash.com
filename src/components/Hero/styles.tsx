@@ -50,6 +50,7 @@ export const AsideTitle = styled.h3`
   font-size: 24px;
   font-weight: 500;
   align-self: flex-start;
+  margin-top: 0;
 `
 
 export const Content = styled.div`
@@ -85,15 +86,6 @@ export const StyledLogo = styled(Logo)`
 
 export const ButtonsWrapper = styled.div`
   display: flex;
-`
-
-export const UL = styled.ul`
-  list-style: none;
-  margin-left: 0;
-
-  li {
-    margin: 0;
-  }
 `
 
 export const StyledLink = styled(Link)`

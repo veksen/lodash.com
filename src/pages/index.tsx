@@ -6,6 +6,7 @@ import Code from "../components/Code"
 import Container from "../components/Container"
 import Footer from "../components/Footer"
 import Hero from "../components/Hero"
+import * as SC from "../components/Hero/styles"
 import Layout from "../components/Layout"
 import SEO from "../components/SEO"
 import UL from "../components/UL"
@@ -84,6 +85,21 @@ var curryN = require('lodash/fp/curryN');
           "Creating composite functions",
         ]}
       />
+
+      <Title>Conventional builds</Title>
+      <SC.UL>
+        <li>
+          <SC.StyledLink to="/">Core build</SC.StyledLink>{" "}
+          <SC.StyledLink to="/">~4kB gzipped</SC.StyledLink>
+        </li>
+        <li>
+          <SC.StyledLink to="/">Full build</SC.StyledLink>{" "}
+          <SC.StyledLink to="/">~24kB gzipped</SC.StyledLink>
+        </li>
+        <li>
+          <SC.StyledLink to="/">CDN copies</SC.StyledLink>
+        </li>
+      </SC.UL>
 
       <Title>Module Formats</Title>
       <p>Lodash is available in a variety of builds & module formats.</p>

@@ -1,6 +1,7 @@
 import { navigate } from "gatsby"
 import React from "react"
 import Button from "../Button"
+import Code from "../Code"
 import * as SC from "./styles"
 
 const Hero = (): JSX.Element => (
@@ -35,22 +36,14 @@ const Hero = (): JSX.Element => (
 
         <SC.Row>
           <SC.Aside>
-            <SC.AsideTitle>Download</SC.AsideTitle>
+            <SC.AsideTitle>Usage</SC.AsideTitle>
           </SC.Aside>
           <SC.Content>
-            <SC.UL>
-              <li>
-                <SC.StyledLink to="/">Core build</SC.StyledLink> (
-                <SC.StyledLink to="/">~4kB gzipped</SC.StyledLink>)
-              </li>
-              <li>
-                <SC.StyledLink to="/">Full build</SC.StyledLink> (
-                <SC.StyledLink to="/">~24kB gzipped</SC.StyledLink>)
-              </li>
-              <li>
-                <SC.StyledLink to="/">CDN copies</SC.StyledLink>
-              </li>
-            </SC.UL>
+            <SC.Title>Install</SC.Title>
+
+            <Code withContainer lang="bash">{`$ npm i lodash
+            # or
+            yarn add lodash`}</Code>
 
             <SC.Info>
               Lodash is released under the{" "}
