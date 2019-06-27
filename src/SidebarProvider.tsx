@@ -1,7 +1,10 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
+import { Group as GroupInterface, Method as MethodInterface } from "./types"
 
 interface SidebarProviderProps {
   children: React.ReactNode
+  initialGroups: GroupInterface[]
+  searchInput: string
 }
 
 interface BaseInput {
@@ -35,6 +38,7 @@ export type Focus = FocusOnInput | FocusOnMethod | FocusOnNothing
 export interface SidebarContextInterface {
   state: {
     focus: Focus
+    filteredGroups: GroupInterface[]
   }
   actions: {
     focusPrevious: () => void
@@ -50,14 +54,45 @@ export const SidebarContext = React.createContext<SidebarContextInterface | null
   null
 )
 
+function filterMethod(method: MethodInterface, input: string): boolean {
+  return method.node.name.toLowerCase().includes(input.toLowerCase())
+}
+
+// TODO: refactor to avoid the weird need for input?
+function filterMethods(m: MethodInterface[], input: string): MethodInterface[] {
+  return m.filter(method => filterMethod(method, input))
+}
+
+// TODO: refactor to avoid the weird need for input?
+function filterGroups(g: GroupInterface[], input: string): GroupInterface[] {
+  return g.filter(({ edges: groupMethods }) => {
+    console.log(filterMethods(groupMethods, input))
+    return filterMethods(groupMethods, input).length
+  })
+}
+
 export function SidebarProvider({
   children,
+  initialGroups,
+  searchInput,
 }: SidebarProviderProps): JSX.Element {
+  const [filteredGroups, setFilteredGroups] = useState<GroupInterface[]>([])
   const [focus, setFocus] = useState<Focus>({
     type: "nothing",
     method: null,
     group: null,
   })
+
+  useEffect(() => {
+    setFilteredGroups(initialGroups)
+  }, [])
+
+  useEffect(() => {
+    console.log("this runs")
+    console.log(searchInput)
+    console.log(filterGroups(initialGroups, searchInput))
+    setFilteredGroups(filterGroups(initialGroups, searchInput))
+  }, [searchInput])
 
   function focusPrevious(): void {
     if (focus.type === "method" && focus.method === 0 && focus.group === 0) {
@@ -114,6 +149,7 @@ export function SidebarProvider({
       value={{
         state: {
           focus,
+          filteredGroups,
         },
         actions: {
           focusPrevious,

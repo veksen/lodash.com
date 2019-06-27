@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import PerfectScrollbar from "react-perfect-scrollbar"
 import "react-perfect-scrollbar/dist/css/styles.css"
-import { useSearch } from "../../hooks/useSearch"
+// import { useSearch } from "../../hooks/useSearch"
 import { useSidebar } from "../../hooks/useSidebar"
 import { Focus } from "../../SidebarProvider"
 import { Group as GroupInterface, Method as MethodInterface } from "../../types"
@@ -12,22 +12,22 @@ interface DocsSidebarProps {
   groups: GroupInterface[]
 }
 
-const filterMethod = (method: MethodInterface["node"], input: string) => {
-  return method.name.toLowerCase().includes(input.toLowerCase())
-}
+// const filterMethod = (method: MethodInterface["node"], input: string) => {
+//   return method.name.toLowerCase().includes(input.toLowerCase())
+// }
 
-// TODO: refactor to avoid the weird need for input?
-const filterMethods = (
-  m: MethodInterface[],
-  input: string
-): MethodInterface[] =>
-  m.filter(({ node: method }) => filterMethod(method, input))
+// // TODO: refactor to avoid the weird need for input?
+// const filterMethods = (
+//   m: MethodInterface[],
+//   input: string
+// ): MethodInterface[] =>
+//   m.filter(({ node: method }) => filterMethod(method, input))
 
-// TODO: refactor to avoid the weird need for input?
-const filterGroups = (g: GroupInterface[], input: string): GroupInterface[] =>
-  g.filter(({ edges: groupMethods }) => {
-    return filterMethods(groupMethods, input).length
-  })
+// // TODO: refactor to avoid the weird need for input?
+// const filterGroups = (g: GroupInterface[], input: string): GroupInterface[] =>
+//   g.filter(({ edges: groupMethods }) => {
+//     return filterMethods(groupMethods, input).length
+//   })
 
 const MethodLink = ({
   method,
@@ -127,16 +127,17 @@ const MethodGroup = ({
 }
 
 const DocsSidebar = ({ groups }: DocsSidebarProps): JSX.Element => {
-  const { state: searchState } = useSearch()
+  // const { state: searchState } = useSearch()
   const { state: sidebarState } = useSidebar()
-  const { input } = searchState
+  // const { input } = searchState
+  const { filteredGroups } = sidebarState
 
-  const filteredGroups = filterGroups(groups, input).map(group => {
-    return {
-      ...group,
-      edges: group.edges.filter(m => filterMethod(m.node, input)),
-    }
-  })
+  // const filteredGroups = filterGroups(groups, input).map(group => {
+  //   return {
+  //     ...group,
+  //     edges: group.edges.filter(m => filterMethod(m.node, input)),
+  //   }
+  // })
 
   function previousGroupLength(groupIndex: number): number | null {
     if (groupIndex === 0) {
