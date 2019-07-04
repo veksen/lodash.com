@@ -15,11 +15,13 @@ const SearchInput = (): JSX.Element => {
     sidebarActions.clearFocus()
   }
 
+  // @ts-ignore
   function handleOnChange(event: KeyboardEvent<HTMLInputElement>): void {
     searchActions.update(event.target.value)
     clearFocus()
   }
 
+  // @ts-ignore
   function handleKeyDown(event: KeyboardEvent<HTMLInputElement>): void {
     if (event.key === "ArrowUp") {
       sidebarActions.focusPrevious()
@@ -35,6 +37,7 @@ const SearchInput = (): JSX.Element => {
     <SC.SearchInputWrapper focused={isFocused}>
       <SC.StyledSearchIcon />
       <SC.SearchInput
+        data-testid="search-input"
         value={searchState.input}
         onChange={handleOnChange}
         placeholder="Search"
